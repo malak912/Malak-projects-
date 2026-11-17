@@ -1,0 +1,289 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Frisky</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #160b19;
+  color: white;
+  font-family: Georgia, serif;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.scene {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, #481c3e, #160b19 75%);
+  overflow: hidden;
+}
+
+h1 {
+  color: #f8d8a0;
+  font-size: clamp(30px, 8vw, 48px);
+  font-weight: normal;
+  text-align: center;
+  margin-bottom: 45px;
+  text-shadow: 0 0 15px #e9a8c9;
+  z-index: 2;
+}
+
+.name {
+  color: #ffb4d7;
+  font-size: 22px;
+  margin-top: 15px;
+  opacity: 0;
+  transition: 1.5s;
+  z-index: 2;
+}
+
+.cake {
+  position: relative;
+  width: 210px;
+  height: 150px;
+  margin-top: 20px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: 1.5s;
+  z-index: 2;
+}
+
+.cake.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.plate {
+  position: absolute;
+  bottom: 0;
+  left: -15px;
+  width: 240px;
+  height: 22px;
+  background: #d6a54d;
+  border-radius: 50%;
+  box-shadow: 0 0 20px #d6a54d55;
+}
+
+.bottom {
+  position: absolute;
+  bottom: 18px;
+  width: 210px;
+  height: 85px;
+  background: linear-gradient(90deg, #a82d76, #ef82b4, #a82d76);
+  border-radius: 12px 12px 22px 22px;
+}
+
+.top {
+  position: absolute;
+  top: 35px;
+  left: 0;
+  width: 210px;
+  height: 35px;
+  background: #ffd5e8;
+  border-radius: 50%;
+  border: 5px solid #e6a1c3;
+}
+
+.icing {
+  position: absolute;
+  top: 53px;
+  left: 10px;
+  width: 190px;
+  height: 22px;
+  background: #fff0f6;
+  border-radius: 50%;
+}
+
+.candle {
+  position: absolute;
+  top: 0;
+  left: 101px;
+  width: 9px;
+  height: 40px;
+  background: repeating-linear-gradient(
+    45deg, white 0 5px, #ed8bb8 5px 10px
+  );
+  z-index: 3;
+}
+
+.flame {
+  position: absolute;
+  top: -19px;
+  left: 99px;
+  width: 13px;
+  height: 20px;
+  background: #ffd35c;
+  border-radius: 50% 50% 50% 50%;
+  box-shadow: 0 0 20px #ffca50;
+  animation: flicker .5s infinite alternate;
+}
+
+@keyframes flicker {
+  to { transform: scale(.8); opacity: .7; }
+}
+
+button {
+  margin-top: 55px;
+  padding: 14px 35px;
+  border: 1px solid #eab5d1;
+  background: #9b416f;
+  color: white;
+  font-size: 17px;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 0 20px #e68ab955;
+  transition: .3s;
+  z-index: 5;
+}
+
+button:active {
+  transform: scale(.93);
+}
+
+.heart {
+  position: absolute;
+  color: #f58bb9;
+  animation: float 6s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes float {
+  0% { transform: translateY(110vh) rotate(0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(-15vh) rotate(360deg); opacity: 0; }
+}
+
+.balloon {
+  position: absolute;
+  bottom: -120px;
+  width: 45px;
+  height: 58px;
+  border-radius: 50%;
+  animation: rise 9s linear infinite;
+  opacity: .8;
+}
+
+.balloon::after {
+  content: "";
+  position: absolute;
+  top: 58px;
+  left: 22px;
+  width: 1px;
+  height: 65px;
+  background: #ffffff66;
+}
+
+@keyframes rise {
+  to { transform: translateY(-120vh); }
+}
+
+.message {
+  position: absolute;
+  bottom: 8%;
+  font-size: 16px;
+  color: #f8d8a0;
+  opacity: 0;
+  transition: 2s;
+  text-align: center;
+  z-index: 3;
+}
+
+.message.show {
+  opacity: 1;
+}
+</style>
+</head>
+
+<body>
+<div class="scene">
+
+  <h1>Happy Birthday ♡</h1>
+
+  <div class="cake" id="cake">
+    <div class="candle"></div>
+    <div class="flame"></div>
+    <div class="top"></div>
+    <div class="icing"></div>
+    <div class="bottom"></div>
+    <div class="plate"></div>
+  </div>
+
+  <div class="name" id="name">الي فريسكي سوهيل </div>
+
+  <button id="openBtn" onclick="surprise()">
+    Open Your Surprise ✨
+  </button>
+
+  <div class="message" id="message">
+    عيد ميلاد سعيد فريسكي احبك حب لانهائي
+  </div>
+
+</div>
+
+<script>
+function surprise() {
+  document.getElementById("cake").classList.add("show");
+  document.getElementById("name").style.opacity = "1";
+  document.getElementById("message").classList.add("show");
+
+  document.getElementById("openBtn").style.display = "none";
+
+  createHearts(35);
+}
+
+function createHearts(number) {
+  for (let i = 0; i < number; i++) {
+    let heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = Math.random() > .5 ? "♥" : "♡";
+
+    heart.style.left = Math.random() * 100 + "%";
+    heart.style.animationDuration = (4 + Math.random() * 5) + "s";
+    heart.style.fontSize = (15 + Math.random() * 25) + "px";
+    heart.style.animationDelay = Math.random() * 3 + "s";
+
+    document.querySelector(".scene").appendChild(heart);
+
+    setTimeout(() => heart.remove(), 10000);
+  }
+}
+
+function createBalloons() {
+  const colors = ["#f48bb9", "#e8b5ee", "#f5d17b", "#ffffff"];
+
+  for (let i = 0; i < 12; i++) {
+    let balloon = document.createElement("div");
+    balloon.className = "balloon";
+
+    balloon.style.left = Math.random() * 100 + "%";
+    balloon.style.background = colors[i % colors.length];
+    balloon.style.animationDelay = Math.random() * 9 + "s";
+
+    document.querySelector(".scene").appendChild(balloon);
+  }
+}
+
+createBalloons();
+createHearts(18);
+</script>
+
+</body>
+</html>
